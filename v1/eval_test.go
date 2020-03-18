@@ -1,4 +1,4 @@
-package eval
+package v1
 
 import (
 	"fmt"
@@ -12,7 +12,6 @@ func TestEval(t *testing.T) {
 		env  Env
 		want string
 	}{
-		{"a == 10", Env{"a": 10}, "1"},
 		// additional tests
 		{"-1 + -x", Env{"x": 1}, "-2"},
 		{"-1 - x", Env{"x": 1}, "-2"},
