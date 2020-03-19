@@ -191,6 +191,17 @@ func main() {
 		}
 	`)
 
+	echo(`func num2float64(v interface{}) (float64, bool) {`)
+	echo(`switch f := v.(type) {`)
+	for _, tp := range types {
+		echo(`case %v:`, tp)
+		echo(`return float64(f), true`)
+	}
+	echo(`}`)
+	echo(`return 0.0, false`)
+	echo(`}`)
+	echo(``)
+
 	b, err := format.Source([]byte(data))
 	check(err)
 	err = ioutil.WriteFile("./parser/helpers.go", b, 0644)

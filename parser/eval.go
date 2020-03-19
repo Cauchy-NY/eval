@@ -66,13 +66,18 @@ func (n BinaryNode) Eval(env Env) interface{} {
 		return and(n.x.Eval(env), n.y.Eval(env))
 	case "||":
 		return or(n.x.Eval(env), n.y.Eval(env))
+	case "in":
+		return n.inArray(env)
 	}
 	panic(fmt.Sprintf("unsupported binary operator: %q", n.op))
 }
 
 func (n ArrayNode) Eval(env Env) interface{} {
-	// op "in" not support for now
-	return nil
+	var res []interface{}
+	for _, v := range n.args {
+		res = append(res, v.Eval(env))
+	}
+	return res
 }
 
 func (n FuncNode) Eval(env Env) interface{} {
@@ -83,6 +88,18 @@ func (n FuncNode) Eval(env Env) interface{} {
 		return n.sin(env)
 	case "sqrt":
 		return n.sqrt(env)
+	case "len":
+		return n.len(env)
+	case "lower":
+		return n.lower(env)
+	case "str_index":
+		return n.index(env)
+	case "contains":
+		return n.contains(env)
+	case "has_prefix":
+		return n.hasPrefix(env)
+	case "has_suffix":
+		return n.hasSuffix(env)
 	}
 	panic(fmt.Sprintf("unsupported function call: %s", n.fn))
 }

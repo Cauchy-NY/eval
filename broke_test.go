@@ -19,6 +19,8 @@ var tests = []struct {
 	// arithmetic tests
 	{"1 + x", parser.Env{"x": 1}, int64(2)},
 	{"1 - x", parser.Env{"x": 1}, int64(0)},
+	{"1.5 * x", parser.Env{"x": 8}, float64(12)},
+	{"1.5 * x", parser.Env{"x": 2}, float64(3)},
 	{"a % 3", parser.Env{"a": 100}, int64(1)},
 	{"a % 3", parser.Env{"a": -4}, int64(-1)},
 	{"5 / 9 * (x - 32)", parser.Env{"x": 32}, int64(0)},
@@ -51,10 +53,21 @@ var tests = []struct {
 	{"a < 10 == b > 6", parser.Env{"a": 1, "b": 8}, true},
 	{"a < 10 == b > 6", parser.Env{"a": 12, "b": 5}, true},
 	{"a < 10 == b > 6", parser.Env{"a": 1, "b": 5}, false},
+	{"want in [lang, \"php\"]", parser.Env{"want": "golang", "lang": "golang"}, true},
+	{"want in [lang, \"php\"]", parser.Env{"want": "golang", "lang": "cpp"}, false},
 	// func test
 	{"sqrt(num / pi)", parser.Env{"num": 87616.0, "pi": math.Pi}, float64(167.00011673013586)},
-	{"pow(x, 3.0) + pow(y, 3.0)", parser.Env{"x": 12.0, "y": 1.0}, float64(1729)},
-	{"pow(x, 3.0) + pow(y, 3.0)", parser.Env{"x": 9.0, "y": 10.0}, float64(1729)},
+	{"sin(pi / 2)", parser.Env{"pi": math.Pi}, float64(1)},
+	{"pow(x, 3) + pow(y, 3)", parser.Env{"x": 9.0, "y": 10.0}, float64(1729)},
+	{"len(\"hello, world!\")", parser.Env{}, int64(13)},
+	{"lower(\"GOLANG\")", parser.Env{}, "golang"},
+	{"str_index(\"golang is a beautiful language\", x)", parser.Env{"x": "beautiful"}, int64(12)},
+	{"contains(\"golang is a beautiful language\", x)", parser.Env{"x": "golang"}, true},
+	{"contains(\"golang is a beautiful language\", x)", parser.Env{"x": "php"}, false},
+	{"has_prefix(\"golang is a beautiful language\", x)", parser.Env{"x": "golang"}, true},
+	{"has_prefix(\"golang is a beautiful language\", x)", parser.Env{"x": "php"}, false},
+	{"has_suffix(\"golang is a beautiful language\", x)", parser.Env{"x": "language"}, true},
+	{"has_suffix(\"golang is a beautiful language\", x)", parser.Env{"x": "beautiful"}, false},
 }
 
 func TestEval(t *testing.T) {

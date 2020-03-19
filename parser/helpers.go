@@ -3292,3 +3292,33 @@ func isNil(v interface{}) bool {
 		return false
 	}
 }
+
+func num2float64(v interface{}) (float64, bool) {
+	switch f := v.(type) {
+	case uint:
+		return float64(f), true
+	case uint8:
+		return float64(f), true
+	case uint16:
+		return float64(f), true
+	case uint32:
+		return float64(f), true
+	case uint64:
+		return float64(f), true
+	case int:
+		return float64(f), true
+	case int8:
+		return float64(f), true
+	case int16:
+		return float64(f), true
+	case int32:
+		return float64(f), true
+	case int64:
+		return float64(f), true
+	case float32:
+		return float64(f), true
+	case float64:
+		return float64(f), true
+	}
+	return 0.0, false
+}

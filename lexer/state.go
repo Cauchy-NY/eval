@@ -42,6 +42,8 @@ func state(lex *Lexer) error {
 			"le", "LE", "ge", "GE", "lt", "LT", "gt", "GT",
 			"eq", "EQ", "ne", "NE": // logic operator
 			lex.emitWithVal(Operator, str2op[strings.ToLower(lex.text())])
+		case "in", "not_in":
+			lex.emit(Operator)
 		default:
 			lex.emit(Ident)
 		}

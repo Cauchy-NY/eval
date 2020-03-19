@@ -2,6 +2,8 @@ package parser
 
 func precedence(op string) int {
 	switch op {
+	case "in", "not_in":
+		return 7
 	case "*", "/", "%":
 		return 6
 	case "+", "-":
