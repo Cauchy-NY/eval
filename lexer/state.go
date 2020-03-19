@@ -16,6 +16,7 @@ var str2op = map[string]string{
 	"ge":  ">=",
 	"lt":  "<",
 	"gt":  ">",
+	"not": "!",
 }
 
 func state(lex *Lexer) error {
@@ -38,7 +39,7 @@ func state(lex *Lexer) error {
 		switch lex.text() {
 		case "t", "T", "true", "True", "f", "F", "false", "False", "TRUE", "FALSE":
 			lex.emitWithVal(Bool, strings.ToLower(lex.text()))
-		case "and", "AND", "or", "OR",
+		case "and", "AND", "or", "OR", "not",
 			"le", "LE", "ge", "GE", "lt", "LT", "gt", "GT",
 			"eq", "EQ", "ne", "NE": // logic operator
 			lex.emitWithVal(Operator, str2op[strings.ToLower(lex.text())])
