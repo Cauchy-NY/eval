@@ -55,6 +55,9 @@ var tests = []struct {
 	{"a < 10 == b > 6", parser.Env{"a": 1, "b": 5}, false},
 	{"want in [lang, \"php\"]", parser.Env{"want": "golang", "lang": "golang"}, true},
 	{"want in [lang, \"php\"]", parser.Env{"want": "golang", "lang": "cpp"}, false},
+	{"pron_predict > 0.86 && user_type not_in [\"big_v\", \"org\"]", parser.Env{"pron_predict": 0.97, "user_type": "normal"}, true},
+	{"pron_predict > 0.86 && user_type not_in [\"big_v\", \"org\"]", parser.Env{"pron_predict": 0.97, "user_type": "big_v"}, false},
+	{"pron_predict > 0.86 && user_type not_in [\"big_v\", \"org\"]", parser.Env{"pron_predict": 0.66, "user_type": "normal"}, false},
 	// func test
 	{"sqrt(num / pi)", parser.Env{"num": 87616.0, "pi": math.Pi}, float64(167.00011673013586)},
 	{"sin(pi / 2)", parser.Env{"pi": math.Pi}, float64(1)},

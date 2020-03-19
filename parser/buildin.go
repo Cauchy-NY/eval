@@ -7,6 +7,18 @@ import (
 	"strings"
 )
 
+func (n BinaryNode) notInArray(env Env) interface{} {
+	want := n.x.Eval(env)
+	if list, ok := n.y.Eval(env).([]interface{}); ok {
+		for _, v := range list {
+			if reflect.DeepEqual(want, v) {
+				return false
+			}
+		}
+	}
+	return true
+}
+
 func (n BinaryNode) inArray(env Env) interface{} {
 	want := n.x.Eval(env)
 	if list, ok := n.y.Eval(env).([]interface{}); ok {

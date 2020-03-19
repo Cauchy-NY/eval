@@ -68,6 +68,8 @@ func (n BinaryNode) Eval(env Env) interface{} {
 		return or(n.x.Eval(env), n.y.Eval(env))
 	case "in":
 		return n.inArray(env)
+	case "not_in":
+		return n.notInArray(env)
 	}
 	panic(fmt.Sprintf("unsupported binary operator: %q", n.op))
 }
