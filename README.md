@@ -2,7 +2,7 @@
 
 eval 是一个表达式求值引擎，可以解析和计算表达式。表达式是返回单个值（主要但不限于布尔值）的一行代码。
 
-该组件的目的是允许用户使用配置表达式的方式来实现更复杂的逻辑。为了方便“业务规则引擎”的开发而编写。
+该组件的目的是允许用户使用配置表达式的方式来实现更复杂的逻辑。为了方便「[业务规则引擎](https://github.com/Cauchy-NY/rule_engine)」的开发而编写。
 
 ```go
 // 算数运算
@@ -40,7 +40,7 @@ if err != nil {
 	panic(err)
 }
 
-var env = parser.Env{
+var env = map[string]interface{}{
 	"greet": "hello,",
 	"name":  "world!",
 }
@@ -64,7 +64,7 @@ if err != nil {
 	panic(err)
 }
 
-var videos = []parser.Env{
+var videos = []map[string]interface{}{
 	{"pron_predict": 0.91, "user_type": "normal"},
 	{"pron_predict": 0.93, "user_type": "big_v"},
 	{"pron_predict": 0.66, "user_type": "normal"},
